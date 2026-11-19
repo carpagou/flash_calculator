@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#101419">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="SL03 Flash">
+  <meta name="description" content="ULANZI SL03 수동 플래시 계산기 - Pentax MX, P30n, Sony ZV-1">
+  <title>SL03 Flash Calculator</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <style>
+    :root{color-scheme:dark;--bg:#0c1014;--panel:#151b22;--panel2:#1b232c;--line:#2a3541;--text:#edf2f7;--muted:#9aa8b7;--accent:#c7f36b;--accent-ink:#17200c;--blue:#9bd6ff;--warn:#ffcc75;--danger:#ff8585;--radius:18px;--shadow:0 16px 44px rgba(0,0,0,.22)}
+    *{box-sizing:border-box}html{background:var(--bg);scroll-behavior:smooth}body{margin:0;background:radial-gradient(ellipse at 50% -20%,#22303c 0%,var(--bg) 52%);color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;line-height:1.5}button,input,select{font:inherit}button{cursor:pointer}
+    .shell{width:min(1040px,100%);margin:0 auto;padding:24px 20px 56px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:22px}.brand{display:flex;align-items:center;gap:13px}.brand-mark{width:45px;height:45px;border-radius:14px;background:var(--accent);color:var(--accent-ink);display:grid;place-items:center;font-size:22px;font-weight:900;box-shadow:0 7px 24px rgba(199,243,107,.16)}.brand h1{font-size:19px;letter-spacing:.08em;margin:0;font-weight:850}.brand p{font-size:11px;color:var(--muted);margin:2px 0 0;letter-spacing:.14em}.top-actions{display:flex;gap:8px}.ghost-btn,.small-btn{border:1px solid var(--line);background:#121920;color:var(--muted);border-radius:11px;padding:9px 12px;font-size:12px}.hero{border:1px solid #34404c;background:linear-gradient(120deg,rgba(30,42,52,.96),rgba(18,25,32,.92));border-radius:24px;padding:24px;display:flex;align-items:center;justify-content:space-between;gap:20px;box-shadow:var(--shadow);overflow:hidden;position:relative}.hero:after{content:"";position:absolute;width:220px;height:220px;border-radius:50%;right:5%;top:-120px;background:rgba(199,243,107,.08);filter:blur(5px)}.eyebrow{font-size:11px;color:var(--accent);letter-spacing:.16em;font-weight:800}.hero h2{font-size:clamp(23px,4vw,34px);line-height:1.12;margin:8px 0}.hero p{font-size:13px;color:var(--muted);max-width:550px;margin:0}.gn-chip{position:relative;z-index:1;border:1px solid #516044;color:var(--accent);background:rgba(199,243,107,.08);border-radius:16px;padding:15px 18px;text-align:center;min-width:116px}.gn-chip strong{display:block;font-size:30px;line-height:1}.gn-chip span{font-size:10px;letter-spacing:.12em;color:#c6d4b0}
+    .mode-tabs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:18px 0}.mode-tab{border:1px solid var(--line);border-radius:16px;background:var(--panel);color:var(--muted);padding:15px 17px;text-align:left;display:flex;align-items:center;gap:12px;transition:.18s}.mode-tab.active{border-color:var(--accent);background:linear-gradient(120deg,rgba(199,243,107,.12),rgba(21,27,34,.94));color:var(--text);box-shadow:0 0 0 1px rgba(199,243,107,.13) inset}.mode-icon{width:39px;height:39px;border-radius:12px;display:grid;place-items:center;background:#27313b;font-size:19px}.mode-tab.active .mode-icon{background:var(--accent);color:var(--accent-ink)}.mode-tab strong{display:block;font-size:14px}.mode-tab small{display:block;font-size:11px;color:var(--muted);margin-top:2px}
+    .workspace{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,.88fr);gap:16px;align-items:start}.panel{border:1px solid var(--line);background:rgba(21,27,34,.94);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow)}.panel h3{margin:0 0 4px;font-size:17px}.subhead{font-size:12px;color:var(--muted);margin:0 0 18px}.section-label{font-size:10px;color:var(--muted);font-weight:800;letter-spacing:.14em;text-transform:uppercase;margin:18px 0 10px}.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.field{min-width:0}.field.full{grid-column:1/-1}.field label{display:block;color:#c4cfda;font-size:12px;font-weight:650;margin:0 0 7px}.field .hint{font-size:10px;color:var(--muted);margin-top:5px}.control{width:100%;height:44px;border:1px solid #354250;background:#0e141a;color:var(--text);border-radius:11px;padding:0 12px;outline:none;min-width:0}.control:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(199,243,107,.11)}select.control{appearance:auto}input[type=number]::-webkit-inner-spin-button{opacity:.5}.segmented{display:flex;background:#0e141a;border:1px solid #354250;border-radius:12px;padding:4px;gap:4px}.segmented button{flex:1;min-height:35px;border:0;border-radius:8px;background:transparent;color:var(--muted);font-size:12px;font-weight:700;padding:6px 9px}.segmented button.active{background:#34422b;color:var(--accent)}.segmented button:focus-visible,.mode-tab:focus-visible,.ghost-btn:focus-visible,.small-btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}.divider{height:1px;background:var(--line);margin:18px 0}.note{border:1px solid #33414e;background:#111820;border-radius:12px;padding:11px 12px;color:var(--muted);font-size:11px}.note strong{color:var(--text)}.range-row{display:flex;justify-content:space-between;align-items:center;gap:10px}.range-row output{font-size:12px;color:var(--accent);font-weight:800}.range{width:100%;accent-color:var(--accent);margin:10px 0 3px}.radio-pills{display:flex;gap:8px}.radio-pills label{flex:1;cursor:pointer}.radio-pills input{position:absolute;opacity:0}.radio-pills span{display:block;text-align:center;padding:10px;border:1px solid #354250;border-radius:11px;background:#0e141a;color:var(--muted);font-size:12px}.radio-pills input:checked+span{border-color:var(--accent);background:rgba(199,243,107,.1);color:var(--accent)}
+    .result-panel{position:sticky;top:14px}.result-empty{border:1px dashed #3a4653;border-radius:15px;padding:24px;text-align:center;color:var(--muted);font-size:12px}.result-kicker{font-size:10px;color:var(--muted);font-weight:800;letter-spacing:.15em}.result-main{font-size:clamp(34px,5vw,48px);font-weight:900;letter-spacing:-.04em;line-height:1.05;margin:8px 0 5px;color:var(--accent)}.result-caption{font-size:12px;color:var(--muted)}.metric-list{display:grid;gap:0;margin-top:15px}.metric{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #29333d;font-size:12px}.metric:last-child{border:0}.metric span{color:var(--muted)}.metric strong{text-align:right;font-variant-numeric:tabular-nums}.status{display:flex;align-items:flex-start;gap:9px;border-radius:12px;padding:11px 12px;margin-top:14px;font-size:11px;line-height:1.5}.status.ok{background:rgba(199,243,107,.09);border:1px solid rgba(199,243,107,.25);color:#d9e8c1}.status.warn{background:rgba(255,204,117,.09);border:1px solid rgba(255,204,117,.3);color:#ffdfaa}.status.bad{background:rgba(255,133,133,.09);border:1px solid rgba(255,133,133,.3);color:#ffc1c1}.status .symbol{font-weight:900}.subtabs{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 18px}.subtab{border:1px solid var(--line);background:#0e141a;color:var(--muted);padding:9px 12px;border-radius:10px;font-size:11px;font-weight:750}.subtab.active{color:var(--accent);border-color:#65764b;background:#20291c}.result-callout{background:linear-gradient(135deg,#293620,#19231a);border:1px solid #566b3c;border-radius:15px;padding:15px;margin-top:16px}.result-callout .big{font-size:29px;font-weight:900;color:var(--accent);line-height:1.1}.result-callout small{display:block;font-size:10px;color:#c1d0ad;margin-bottom:6px}.power-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-top:14px}.power-cell{border:1px solid var(--line);border-radius:10px;background:#10171d;padding:10px 4px;text-align:center}.power-cell strong{display:block;font-size:13px}.power-cell small{font-size:9px;color:var(--muted)}.power-cell.selected{border-color:var(--accent);background:rgba(199,243,107,.1);box-shadow:inset 0 0 0 1px rgba(199,243,107,.15)}.foot{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;color:#7f8d9b;font-size:10px;margin:18px 2px 0}.hidden{display:none!important}.helper{color:var(--muted);font-size:11px;margin:10px 0 0}.sync-row{display:flex;justify-content:space-between;gap:10px;align-items:center;font-size:11px;color:var(--muted);margin-top:8px}.sync-row strong{color:var(--text)}.toggle-line{display:flex;align-items:center;gap:9px;font-size:12px;color:#c4cfda}.toggle-line input{accent-color:var(--accent)}
+    @media(max-width:760px){.shell{padding:16px 13px 38px}.hero{padding:19px}.gn-chip{min-width:90px;padding:12px}.gn-chip strong{font-size:25px}.workspace{grid-template-columns:1fr}.result-panel{position:static}.panel{padding:17px}.field-grid{gap:10px}}
+    @media(max-width:430px){.hero{align-items:flex-start}.gn-chip{min-width:75px}.gn-chip span{font-size:8px}.field-grid{grid-template-columns:1fr 1fr}.mode-tab{padding:12px 10px;gap:8px}.mode-icon{width:33px;height:33px}.mode-tab strong{font-size:12px}.mode-tab small{font-size:10px}.topbar{align-items:flex-start}.top-actions{flex-direction:column}.ghost-btn{padding:7px 9px}.panel{padding:15px}}
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div class="brand"><div class="brand-mark">⚡</div><div><h1>SL03 FLASH</h1><p>MANUAL FLASH CALCULATOR</p></div></div>
+      <div class="top-actions"><button class="ghost-btn" id="helpBtn" type="button">사용 안내</button><button class="ghost-btn" id="resetBtn" type="button">초기화</button></div>
+    </header>
+    <section class="hero">
+      <div><div class="eyebrow">ULANZI SL03 · GN 8</div><h2>빛을 계산하고,<br>촬영에 집중하세요.</h2><p>필름과 디지털 카메라에 맞춰 플래시 출력, 촬영 거리, 셔터속도와 ISO를 계산합니다.</p></div>
+      <div class="gn-chip"><strong>GN 8</strong><span>ISO 100 · 1/1</span></div>
+    </section>
+    <nav class="mode-tabs" aria-label="촬영 모드">
+      <button class="mode-tab active" data-mode="film" type="button"><span class="mode-icon">▣</span><span><strong>FILM MODE</strong><small>Pentax MX · P30n</small></span></button>
+      <button class="mode-tab" data-mode="digital" type="button"><span class="mode-icon">◉</span><span><strong>DIGITAL MODE</strong><small>Sony ZV-1</small></span></button>
+    </nav>
+
+    <section class="workspace" id="filmWorkspace">
+      <div class="panel">
+        <h3>필름 카메라 설정</h3><p class="subhead">조리개와 필름 감도를 기준으로 직광 플래시를 계산합니다.</p>
+        <div class="field-grid">
+          <div class="field full"><label for="filmCamera">카메라 바디</label><select class="control" id="filmCamera"><option value="MX">Pentax MX · X-sync 1/60초</option><option value="P30n">Pentax P30n · X-sync 1/100초</option></select></div>
+          <div class="field"><label for="filmAperture">조리개 F값</label><input class="control" id="filmAperture" type="number" min="0.7" max="64" step="0.1" value="2.8"></div>
+          <div class="field"><label for="filmISO">필름 ISO</label><input class="control" id="filmISO" type="number" min="1" max="102400" step="1" value="400"></div>
+          <div class="field full"><label for="filmSync">셔터 동조속도</label><select class="control" id="filmSync"><option value="100">1/100초</option><option value="60" selected>1/60초</option><option value="30">1/30초</option><option value="15">1/15초</option><option value="8">1/8초</option><option value="4">1/4초</option><option value="2">1/2초</option><option value="1">1초</option></select><div class="hint" id="filmSyncHint">MX의 최대 X 동조속도는 1/60초입니다.</div></div>
+        </div>
+        <div class="divider"></div>
+        <div class="section-label">계산 방식</div>
+        <div class="subtabs" role="tablist"><button class="subtab active" data-filmcalc="distance" type="button">거리 → 출력</button><button class="subtab" data-filmcalc="power" type="button">출력 → 거리</button></div>
+        <div class="field-grid">
+          <div class="field full" id="filmDistanceField"><label for="filmDistance">피사체까지 거리 (m)</label><input class="control" id="filmDistance" type="number" min="0.1" max="100" step="0.1" value="2"></div>
+          <div class="field full hidden" id="filmPowerField"><label for="filmPower">플래시 출력</label><select class="control" id="filmPower"><option value="0.125">1/8</option><option value="0.25" selected>1/4</option><option value="0.5">1/2</option><option value="1">1/1</option></select></div>
+        </div>
+        <div class="divider"></div>
+        <div class="section-label">광원 보정</div>
+        <div class="radio-pills"><label><input type="radio" name="filmLight" value="direct" checked><span>직광</span></label><label><input type="radio" name="filmLight" value="bounce"><span>바운스</span></label></div>
+        <div class="field full hidden" id="filmBounceField" style="margin-top:13px"><div class="range-row"><label for="filmBounce">예상 바운스 손실</label><output id="filmBounceOut">2.0 EV</output></div><input class="range" id="filmBounce" type="range" min="0" max="4" step="0.5" value="2"><div class="hint">반사면과 천장 높이에 따른 광량 손실을 추정하는 보정값입니다.</div></div>
+      </div>
+      <aside class="panel result-panel"><h3>계산 결과</h3><p class="subhead">입력값에 따라 결과가 실시간으로 바뀝니다.</p><div id="filmResult" class="result-empty">조리개, ISO 및 촬영 조건을 입력하면<br>추천 결과가 여기에 표시됩니다.</div></aside>
+    </section>
+
+    <section class="workspace hidden" id="digitalWorkspace">
+      <div class="panel">
+        <h3>Sony ZV-1 설정</h3><p class="subhead">ZV-1의 셔터 설정과 플래시 계산을 함께 확인합니다.</p>
+        <div class="field-grid">
+          <div class="field full"><label>셔터 유형</label><div class="segmented" id="shutterType"><button class="active" data-value="mechanical" type="button">기계식</button><button data-value="electronic" type="button">전자식</button></div><div class="sync-row"><span>앱의 동조 기준</span><strong id="digitalSyncLimit">기계식 · 최대 1/2000초</strong></div></div>
+        </div>
+        <div class="divider"></div>
+        <div class="subtabs" role="tablist"><button class="subtab active" data-digitalcalc="ambient" type="button">측광 기반</button><button class="subtab" data-digitalcalc="power" type="button">직접 계산</button><button class="subtab" data-digitalcalc="iso" type="button">ISO 역산</button></div>
+        <div id="digitalCommonFields" class="field-grid">
+          <div class="field"><label for="digitalAperture">조리개 F값</label><input class="control" id="digitalAperture" type="number" min="0.7" max="64" step="0.1" value="2.8"></div>
+          <div class="field" id="digitalISOField"><label for="digitalISO">ISO 감도</label><input class="control" id="digitalISO" type="number" min="80" max="12800" step="1" value="400"></div>
+          <div class="field full" id="digitalDistanceField"><label for="digitalDistance">피사체까지 거리 (m)</label><input class="control" id="digitalDistance" type="number" min="0.1" max="100" step="0.1" value="2"></div>
+          <div class="field full" id="meterShutterField"><label for="meterShutter">현재 카메라 측광 셔터속도</label><select class="control" id="meterShutter"></select><div class="hint">주변광을 적정 노출하기 위해 카메라가 표시하는 셔터속도</div></div>
+          <div class="field full hidden" id="manualShutterField"><label for="manualShutter">촬영 셔터속도</label><select class="control" id="manualShutter"></select></div>
+          <div class="field full hidden" id="inverseShutterField"><label for="inverseShutter">촬영 셔터속도</label><select class="control" id="inverseShutter"></select></div>
+          <div class="field full hidden" id="inversePowerField"><label for="inversePower">플래시 출력</label><select class="control" id="inversePower"><option value="0.125">1/8</option><option value="0.25" selected>1/4</option><option value="0.5">1/2</option><option value="1">1/1</option></select></div>
+          <div class="field full" id="ambientCompField"><label>주변광 노출 보정</label><div class="segmented" id="ambientComp"><button class="active" data-value="0" type="button">0 EV</button><button data-value="-1" type="button">-1 EV</button><button data-value="-2" type="button">-2 EV</button></div></div>
+        </div>
+        <div class="divider"></div>
+        <div class="section-label">광원 보정</div>
+        <div class="radio-pills"><label><input type="radio" name="digitalLight" value="direct" checked><span>직광</span></label><label><input type="radio" name="digitalLight" value="bounce"><span>바운스</span></label></div>
+        <div class="field full hidden" id="digitalBounceField" style="margin-top:13px"><div class="range-row"><label for="digitalBounce">예상 바운스 손실</label><output id="digitalBounceOut">2.0 EV</output></div><input class="range" id="digitalBounce" type="range" min="0" max="4" step="0.5" value="2"><div class="hint">반사면과 천장 높이에 따른 광량 손실을 추정하는 보정값입니다.</div></div>
+      </div>
+      <aside class="panel result-panel"><h3>계산 결과</h3><p class="subhead">계산 ISO와 카메라 추천 ISO, 노출 오차를 함께 표시합니다.</p><div id="digitalResult" class="result-empty">촬영 조건을 입력하면 결과가 여기에 표시됩니다.</div></aside>
+    </section>
+    <section class="panel hidden" id="helpPanel" style="margin-top:16px">
+      <h3>계산 기준과 사용 안내</h3><p class="subhead">SL03의 GN8(ISO 100)을 기준으로 한 이론값입니다.</p>
+      <div class="note"><strong>가이드 넘버 공식</strong><br>GN = 8 × √(ISO / 100) × √(플래시 출력)<br>적정 거리 = GN × 바운스 보정계수 ÷ F값<br>필요 출력 = (F값 × 거리 ÷ (GN100 × √(ISO/100) × 보정계수))²</div>
+      <div class="note" style="margin-top:9px"><strong>노출 오차(EV)</strong><br>+ 값은 계산보다 밝은 방향, − 값은 어두운 방향입니다. 출력과 ISO는 로그 단위로 비교합니다.</div>
+      <div class="note" style="margin-top:9px"><strong>ZV-1 동조 설정</strong><br>기계식 셔터는 사용자가 SL03을 1/2000초까지 실촬영 검증한 결과를 기준으로 합니다. 전자식 셔터는 소니가 플래시를 1/100초보다 빠르게 사용할 때 Auto 또는 Mechanical을 안내하는 점을 고려해 1/100초를 보수적 기준으로 사용합니다.</div>
+      <div class="note" style="margin-top:9px"><strong>주의</strong><br>바운스 보정은 사용자가 정한 추정 손실입니다. 반사면의 색·거리·크기에 따라 실제 광량은 달라집니다. 플래시 지속시간, 피사체 반사율, 광량 편차는 별도 측정하지 않습니다.</div>
+    </section>
+    <footer class="foot"><span>SL03 FLASH CALCULATOR · OFFLINE READY</span><span>설정은 이 브라우저에 자동 저장됩니다.</span></footer>
+  </main>
+<script>
+(() => {
+  'use strict';
+  const $ = (id) => document.getElementById(id);
+  const POWER = [
+    {label:'1/8', value:0.125, recycle:'연속 발광'},
+    {label:'1/4', value:0.25, recycle:'약 0.8초'},
+    {label:'1/2', value:0.5, recycle:'약 1.5초'},
+    {label:'1/1', value:1, recycle:'약 2.5초'}
+  ];
+  const ISO_STEPS = [80,100,125,160,200,250,320,400,500,640,800,1000,1250,1600,2000,2500,3200,4000,5000,6400,8000,10000,12800];
+  const SHUTTERS = [
+    {label:'30초',s:30},{label:'20초',s:20},{label:'15초',s:15},{label:'13초',s:13},{label:'10초',s:10},{label:'8초',s:8},{label:'6초',s:6},{label:'5초',s:5},{label:'4초',s:4},{label:'3.2초',s:3.2},{label:'2.5초',s:2.5},{label:'2초',s:2},{label:'1.6초',s:1.6},{label:'1.3초',s:1.3},{label:'1초',s:1},{label:'1/1.3초',s:1/1.3},{label:'1/1.6초',s:1/1.6},{label:'1/2초',s:0.5},{label:'1/2.5초',s:0.4},{label:'1/3.2초',s:1/3.2},{label:'1/4초',s:0.25},{label:'1/5초',s:0.2},{label:'1/6초',s:1/6},{label:'1/8초',s:0.125},{label:'1/10초',s:0.1},{label:'1/13초',s:1/13},{label:'1/15초',s:1/15},{label:'1/20초',s:0.05},{label:'1/25초',s:0.04},{label:'1/30초',s:1/30},{label:'1/40초',s:0.025},{label:'1/50초',s:0.02},{label:'1/60초',s:1/60},{label:'1/80초',s:0.0125},{label:'1/100초',s:0.01},{label:'1/125초',s:0.008},{label:'1/160초',s:1/160},{label:'1/200초',s:0.005},{label:'1/250초',s:1/250},{label:'1/320초',s:1/320},{label:'1/400초',s:1/400},{label:'1/500초',s:1/500},{label:'1/640초',s:1/640},{label:'1/800초',s:1/800},{label:'1/1000초',s:1/1000},{label:'1/1250초',s:1/1250},{label:'1/1600초',s:1/1600},{label:'1/2000초',s:1/2000}
+  ];
+  let mode='film', filmCalc='distance', digitalCalc='ambient', shutterType='mechanical', ambientEV=0;
+  const clamp = (v,min,max) => Math.min(max,Math.max(min,v));
+  const number = (id) => Number($(id).value);
+  const valid = (...values) => values.every(v => Number.isFinite(v) && v > 0);
+  const ev = (v) => `${v>0?'+':''}${v.toFixed(2)} EV`;
+  const shutterName = (s) => s >= 1 ? `${Number(s.toFixed(2))}초` : `1/${Math.round(1/s)}초`;
+  const nearest = (target, list, getValue) => list.reduce((best,item) => Math.abs(Math.log2(getValue(item)/target)) < Math.abs(Math.log2(getValue(best)/target)) ? item : best, list[0]);
+  const nearestPower = (target) => nearest(target,POWER,p=>p.value);
+  const nearestISO = (target) => nearest(target,ISO_STEPS,v=>v);
+  const bounceFactor = (loss) => Math.pow(2,-loss/2);
+  const gnAt = (iso,power) => 8*Math.sqrt(iso/100)*Math.sqrt(power);
+  const requiredPower = (f,iso,distance,factor) => Math.pow((f*distance)/(8*Math.sqrt(iso/100)*factor),2);
+  const actualError = (actual,required) => Math.log2(actual/required);
+  const fillSelect = (select, options, selected) => {
+    select.innerHTML = options.map((x,i)=>`<option value="${x.s}" ${Math.abs(x.s-selected)<1e-8?'selected':''}>${x.label}</option>`).join('');
+  };
+  const getSelected = (name) => document.querySelector(`input[name="${name}"]:checked`).value;
+  const filmShutterName = (denominator) => denominator === 1 ? '1초' : `1/${denominator}초`;
+  const metric = (label,value) => `<div class="metric"><span>${label}</span><strong>${value}</strong></div>`;
+  const status = (kind,title,body) => `<div class="status ${kind}"><span class="symbol">${kind==='ok'?'✓':kind==='warn'?'!':'×'}</span><span><strong>${title}</strong><br>${body}</span></div>`;
+  const resultTop = (kicker,big,caption) => `<div class="result-kicker">${kicker}</div><div class="result-main">${big}</div><div class="result-caption">${caption}</div>`;
+  const powerGuide = (selected) => `<div class="power-grid">${POWER.map(p=>`<div class="power-cell ${p.value===selected?'selected':''}"><strong>${p.label}</strong><small>${p.recycle}</small></div>`).join('')}</div>`;
+  const showResult = (id,html) => { $(id).className=''; $(id).innerHTML=html; };
+  const showEmpty = (id,msg) => { $(id).className='result-empty'; $(id).textContent=msg; };
+
+  function syncModeUI(){
+    $('filmWorkspace').classList.toggle('hidden',mode!=='film');
+    $('digitalWorkspace').classList.toggle('hidden',mode!=='digital');
+    document.querySelectorAll('[data-mode]').forEach(b=>b.classList.toggle('active',b.dataset.mode===mode));
+  }
+  function syncFilmUI(){
+    $('filmDistanceField').classList.toggle('hidden',filmCalc!=='distance');
+    $('filmPowerField').classList.toggle('hidden',filmCalc!=='power');
+    const camera=$('filmCamera').value, limit=camera==='MX'?60:100;
+    const sync=number('filmSync');
+    $('filmSyncHint').textContent=`${camera}의 최대 X 동조속도는 1/${limit}초입니다. 현재 선택: ${filmShutterName(sync)}.${sync>limit?' 동조속도를 초과합니다.':''}`;
+    $('filmSyncHint').style.color=sync>limit?'var(--warn)':'var(--muted)';
+    const bounce=getSelected('filmLight')==='bounce';
+    $('filmBounceField').classList.toggle('hidden',!bounce);
+    $('filmBounceOut').textContent=`${number('filmBounce').toFixed(1)} EV`;
+  }
+  function filmResult(){
+    syncFilmUI();
+    const f=number('filmAperture'), iso=number('filmISO'), factor=bounceFactor(getSelected('filmLight')==='bounce'?number('filmBounce'):0);
+    const camera=$('filmCamera').value, limit=camera==='MX'?60:100, selectedSync=number('filmSync');
+    if(!valid(f,iso)){showEmpty('filmResult','조리개 F값과 필름 ISO를 0보다 큰 값으로 입력해 주세요.');return;}
+    let html='';
+    if(filmCalc==='distance'){
+      const d=number('filmDistance'); if(!valid(d)){showEmpty('filmResult','피사체까지 거리를 0보다 크게 입력해 주세요.');return;}
+      const needed=requiredPower(f,iso,d,factor), chosen=nearestPower(needed), err=actualError(chosen.value,needed);
+      const effectiveDistance=8*Math.sqrt(iso/100)*Math.sqrt(chosen.value)*factor/f;
+      html=resultTop('RECOMMENDED FLASH POWER',chosen.label,`F${f} · ISO ${iso} · ${d.toFixed(2)}m`)+`<div class="result-callout"><small>추천 출력의 적정 촬영 거리</small><div class="big">${effectiveDistance.toFixed(2)} m</div></div><div class="metric-list">${metric('이론상 필요한 출력',needed.toFixed(3))}${metric('실제 출력 노출 오차',ev(err))}${metric('실제 플래시 GN',(gnAt(iso,chosen.value)*factor).toFixed(2))}${metric('재충전 시간',chosen.recycle)}</div>${powerGuide(chosen.value)}`;
+      if(needed>1)html+=status('bad','최대 출력으로도 광량 부족',`필요 출력은 1/1을 초과합니다. 더 가까이 이동하거나 ISO를 올리고 조리개를 열어 주세요.`);
+      else if(needed<0.125)html+=status('warn','최소 출력보다 낮은 광량 필요','1/8 출력에서도 과노출 가능성이 있습니다. 거리를 늘리거나 조리개를 조여 주세요.');
+      else html+=status('ok','계산 완료','가장 가까운 SL03 출력 단계와 이론값의 EV 차이를 표시했습니다.');
+    } else {
+      const p=number('filmPower'); if(!valid(p)){showEmpty('filmResult','플래시 출력을 선택해 주세요.');return;}
+      const d=8*Math.sqrt(iso/100)*Math.sqrt(p)*factor/f, chosen=POWER.find(x=>x.value===p);
+      html=resultTop('MAXIMUM RECOMMENDED DISTANCE',`${d.toFixed(2)} m`, `F${f} · ISO ${iso} · 출력 ${chosen.label}`)+`<div class="metric-list">${metric('실제 유효 GN',(gnAt(iso,p)*factor).toFixed(2))}${metric('플래시 재충전',chosen.recycle)}</div>${powerGuide(p)}${status('ok','계산 완료','선택한 출력에서 이론상 적정 노출이 되는 직광/바운스 기준 거리를 계산했습니다.')}`;
+    }
+    if(selectedSync>limit)html+=status('warn','동조속도 초과',`${camera}의 최대 X 동조속도는 1/${limit}초입니다. 1/${limit}초 또는 더 느린 셔터를 사용하세요.`);
+    else html+=status('ok','동조속도 확인',`선택한 ${filmShutterName(selectedSync)}는 ${camera}의 설정된 X 동조속도 범위 안입니다.`);
+    showResult('filmResult',html);
+  }
+  function digitalPowerResult(){
+    const f=number('digitalAperture'),iso=number('digitalISO'),d=number('digitalDistance');
+    const loss=getSelected('digitalLight')==='bounce'?number('digitalBounce'):0, factor=bounceFactor(loss);
+    if(!valid(f,iso,d)){showEmpty('digitalResult','조리개, ISO, 거리를 모두 0보다 크게 입력해 주세요.');return;}
+    const need=requiredPower(f,iso,d,factor),chosen=nearestPower(need),error=actualError(chosen.value,need),distance=8*Math.sqrt(iso/100)*Math.sqrt(chosen.value)*factor/f;
+    let html=resultTop('RECOMMENDED FLASH POWER',chosen.label,`F${f} · ISO ${iso} · ${d.toFixed(2)}m`)+`<div class="result-callout"><small>추천 출력의 적정 거리</small><div class="big">${distance.toFixed(2)} m</div></div><div class="metric-list">${metric('이론상 필요한 출력',need.toFixed(3))}${metric('출력 적용 후 오차',ev(error))}${metric('유효 가이드 넘버',(gnAt(iso,chosen.value)*factor).toFixed(2))}${metric('재충전 시간',chosen.recycle)}</div>${powerGuide(chosen.value)}`;
+    if(need>1)html+=status('bad','최대 출력으로도 광량 부족','피사체에 더 가까이 접근하거나 ISO를 높이세요.');
+    else if(need<.125)html+=status('warn','최소 출력에서도 밝을 수 있음','거리를 늘리거나 조리개를 조여 주세요.');
+    else html+=status('ok','플래시 광량 계산 완료','셔터속도는 동조 확인용이며 플래시 광량 자체에는 직접 반영되지 않습니다.');
+    const shutter=number('manualShutter'),max=shutterType==='mechanical'?1/2000:1/100;
+    if(shutter<max)html+=status('warn','설정 셔터속도 확인 필요',`${shutterName(shutter)}는 이 모드의 기준 동조 한계보다 빠릅니다.`);
+    else html+=status('ok','동조속도 확인',`${shutterName(shutter)}는 현재 선택한 셔터 유형의 기준 범위 안입니다.`);
+    showResult('digitalResult',html);
+  }
+  function digitalAmbientResult(){
+    const f=number('digitalAperture'),iso=number('digitalISO'),d=number('digitalDistance'),meter=number('meterShutter');
+    const loss=getSelected('digitalLight')==='bounce'?number('digitalBounce'):0, factor=bounceFactor(loss);
+    if(!valid(f,iso,d,meter)){showEmpty('digitalResult','조리개, ISO, 거리, 측광 셔터속도를 확인해 주세요.');return;}
+    const need=requiredPower(f,iso,d,factor),chosen=nearestPower(need),error=actualError(chosen.value,need);
+    const compensation=ambientEV, target=meter*Math.pow(2,compensation), shutter=nearest(target,SHUTTERS,x=>x.s);
+    const max=shutterType==='mechanical'?1/2000:1/100;
+    const tooFast=target<max;
+    let html=resultTop('RECOMMENDED FLASH POWER',chosen.label,`F${f} · ISO ${iso} · ${d.toFixed(2)}m`)+`<div class="result-callout"><small>주변광 보정 후 추천 셔터속도</small><div class="big">${shutter.label}</div><small style="margin-top:7px">측광 ${shutterName(meter)} · 보정 ${compensation} EV</small></div><div class="metric-list">${metric('이론상 필요한 플래시 출력',need.toFixed(3))}${metric('플래시 출력 오차',ev(error))}${metric('목표 주변광 노출',`${compensation} EV`)}${metric('추천 출력 재충전',chosen.recycle)}</div>${powerGuide(chosen.value)}`;
+    if(need>1)html+=status('bad','최대 플래시 출력으로 부족','거리나 ISO, 조리개를 조정해 주세요.');
+    else if(need<.125)html+=status('warn','최소 출력에서도 밝을 수 있음','거리를 늘리거나 조리개를 조여 주세요.');
+    if(tooFast)html+=status('warn','동조 기준보다 빠른 셔터가 필요함',`목표 ${shutter.label}은 ${shutterType==='mechanical'?'실측 설정 상한 1/2000초':'전자식 기준 1/100초'}보다 빠릅니다. ISO를 낮추거나 조리개를 조여 주변광을 맞춰 보세요.`);
+    else html+=status('ok','셔터속도 기준 확인',`${shutter.label}은 현재 선택한 셔터 유형의 설정 범위 안입니다.`);
+    showResult('digitalResult',html);
+  }
+  function digitalISOResult(){
+    const f=number('digitalAperture'),d=number('digitalDistance'),p=number('inversePower'),loss=getSelected('digitalLight')==='bounce'?number('digitalBounce'):0,factor=bounceFactor(loss),shutter=number('inverseShutter');
+    if(!valid(f,d,p,shutter)){showEmpty('digitalResult','조리개, 거리, 출력, 셔터속도를 확인해 주세요.');return;}
+    const calculated=100*Math.pow((f*d)/(8*Math.sqrt(p)*factor),2),recommended=nearestISO(calculated),error=Math.log2(recommended/calculated),max=shutterType==='mechanical'?1/2000:1/100;
+    let html=resultTop('CALCULATED ISO',`ISO ${Math.round(calculated)}`,`F${f} · ${d.toFixed(2)}m · 출력 ${POWER.find(x=>x.value===p).label}`)+`<div class="result-callout"><small>카메라 실제 추천 ISO</small><div class="big">ISO ${recommended}</div></div><div class="metric-list">${metric('계산된 이론 ISO',`ISO ${calculated.toFixed(1)}`)}${metric('추천 ISO의 노출 오차',ev(error))}${metric('설정 셔터속도',shutterName(shutter))}${metric('유효 가이드 넘버',(gnAt(recommended,p)*factor).toFixed(2))}</div>`;
+    if(calculated<80)html+=status('warn','계산 ISO가 카메라 설정 하한보다 낮음','ISO 80으로 표시했습니다. 필요하면 ND 필터나 조리개 조절을 고려하세요.');
+    else if(calculated>12800)html+=status('bad','계산 ISO가 카메라 설정 상한을 초과','ISO 12800으로도 노출이 부족할 수 있습니다. 더 가까이 접근하거나 플래시 출력을 높이세요.');
+    else html+=status('ok','ISO 역산 완료','이론 ISO와 카메라에서 선택할 수 있는 가장 가까운 ISO, 적용 오차를 표시했습니다.');
+    if(shutter<max)html+=status('warn','동조속도 기준 초과',`${shutterName(shutter)}는 현재 셔터 유형의 설정 상한보다 빠릅니다.`);
+    else html+=status('ok','동조속도 확인',`${shutterName(shutter)}는 현재 셔터 유형의 설정 범위 안입니다.`);
+    showResult('digitalResult',html);
+  }
+  function digitalUI(){
+    const isAmbient=digitalCalc==='ambient',isPower=digitalCalc==='power',isISO=digitalCalc==='iso';
+    $('digitalISOField').classList.toggle('hidden',isISO);
+    $('digitalDistanceField').classList.toggle('hidden',false);
+    $('meterShutterField').classList.toggle('hidden',!isAmbient);
+    $('manualShutterField').classList.toggle('hidden',!isPower);
+    $('inverseShutterField').classList.toggle('hidden',!isISO);
+    $('inversePowerField').classList.toggle('hidden',!isISO);
+    $('ambientCompField').classList.toggle('hidden',!isAmbient);
+    $('digitalSyncLimit').textContent=shutterType==='mechanical'?'기계식 · 1/2000초 (실측 기준)':'전자식 · 1/100초 (보수적 기준)';
+    $('digitalISOField').querySelector('label').textContent='ISO 감도';
+    updateDigitalResult();
+  }
+  function updateDigitalResult(){
+    if(digitalCalc==='ambient')digitalAmbientResult();else if(digitalCalc==='power')digitalPowerResult();else digitalISOResult();
+  }
+  function updateAll(){ if(mode==='film')filmResult();else updateDigitalResult(); }
+
+  // Tabs and controls
+  document.querySelectorAll('[data-mode]').forEach(b=>b.addEventListener('click',()=>{mode=b.dataset.mode;syncModeUI();updateAll();save();}));
+  document.querySelectorAll('[data-filmcalc]').forEach(b=>b.addEventListener('click',()=>{filmCalc=b.dataset.filmcalc;document.querySelectorAll('[data-filmcalc]').forEach(x=>x.classList.toggle('active',x===b));syncFilmUI();filmResult();save();}));
+  document.querySelectorAll('[data-digitalcalc]').forEach(b=>b.addEventListener('click',()=>{digitalCalc=b.dataset.digitalcalc;document.querySelectorAll('[data-digitalcalc]').forEach(x=>x.classList.toggle('active',x===b));digitalUI();save();}));
+  document.querySelectorAll('#shutterType button').forEach(b=>b.addEventListener('click',()=>{shutterType=b.dataset.value;document.querySelectorAll('#shutterType button').forEach(x=>x.classList.toggle('active',x===b));digitalUI();save();}));
+  document.querySelectorAll('#ambientComp button').forEach(b=>b.addEventListener('click',()=>{ambientEV=Number(b.dataset.value);document.querySelectorAll('#ambientComp button').forEach(x=>x.classList.toggle('active',x===b));updateDigitalResult();save();}));
+  document.querySelectorAll('input[name="filmLight"]').forEach(x=>x.addEventListener('change',()=>{syncFilmUI();filmResult();save();}));
+  document.querySelectorAll('input[name="digitalLight"]').forEach(x=>x.addEventListener('change',()=>{$('digitalBounceField').classList.toggle('hidden',getSelected('digitalLight')!=='bounce');updateDigitalResult();save();}));
+  $('filmCamera').addEventListener('change',()=>{syncFilmUI();filmResult();save();});
+  const onControlChange = (el) => { if(el.id==='filmBounce')$('filmBounceOut').textContent=`${number('filmBounce').toFixed(1)} EV`; if(el.id==='digitalBounce')$('digitalBounceOut').textContent=`${number('digitalBounce').toFixed(1)} EV`; updateAll(); save(); };
+  document.querySelectorAll('input,select').forEach(el=>{el.addEventListener('input',()=>onControlChange(el));el.addEventListener('change',()=>onControlChange(el));});
+  $('filmBounce').addEventListener('input',()=>{syncFilmUI();}); $('digitalBounce').addEventListener('input',()=>{$('digitalBounceOut').textContent=`${number('digitalBounce').toFixed(1)} EV`;});
+  $('helpBtn').addEventListener('click',()=>{$('helpPanel').classList.toggle('hidden');$('helpPanel').scrollIntoView({behavior:'smooth',block:'nearest'});});
+  $('resetBtn').addEventListener('click',()=>{if(confirm('모든 입력값을 기본 설정으로 초기화할까요?')){localStorage.removeItem('sl03-calculator-v1');location.reload();}});
+
+  // Persistent local preferences (this device/browser only)
+  const SAVE_IDS=['filmCamera','filmAperture','filmISO','filmSync','filmDistance','filmPower','filmBounce','digitalAperture','digitalISO','digitalDistance','meterShutter','manualShutter','inverseShutter','inversePower','digitalBounce'];
+  function save(){
+    try{const data={mode,filmCalc,digitalCalc,shutterType,ambientEV,fields:{}};SAVE_IDS.forEach(id=>data.fields[id]=$(id).value);data.filmLight=getSelected('filmLight');data.digitalLight=getSelected('digitalLight');localStorage.setItem('sl03-calculator-v1',JSON.stringify(data));}catch(e){/* local storage can be unavailable in private contexts */}
+  }
+  function restore(){
+    try{const data=JSON.parse(localStorage.getItem('sl03-calculator-v1')||'null');if(!data)return;mode=['film','digital'].includes(data.mode)?data.mode:'film';filmCalc=['distance','power'].includes(data.filmCalc)?data.filmCalc:'distance';digitalCalc=['ambient','power','iso'].includes(data.digitalCalc)?data.digitalCalc:'ambient';shutterType=data.shutterType==='electronic'?'electronic':'mechanical';ambientEV=[0,-1,-2].includes(data.ambientEV)?data.ambientEV:0;if(data.fields)SAVE_IDS.forEach(id=>{if(data.fields[id]!==undefined)$(id).value=data.fields[id];});if(data.filmLight)document.querySelector(`input[name="filmLight"][value="${data.filmLight}"]`).checked=true;if(data.digitalLight)document.querySelector(`input[name="digitalLight"][value="${data.digitalLight}"]`).checked=true;}catch(e){/* ignore malformed saved state */}
+  }
+  function setup(){
+    fillSelect($('meterShutter'),SHUTTERS,1/60);fillSelect($('manualShutter'),SHUTTERS,1/250);fillSelect($('inverseShutter'),SHUTTERS,1/250);
+    restore();
+    document.querySelectorAll('[data-filmcalc]').forEach(b=>b.classList.toggle('active',b.dataset.filmcalc===filmCalc));
+    document.querySelectorAll('[data-digitalcalc]').forEach(b=>b.classList.toggle('active',b.dataset.digitalcalc===digitalCalc));
+    document.querySelectorAll('#shutterType button').forEach(b=>b.classList.toggle('active',b.dataset.value===shutterType));
+    document.querySelectorAll('#ambientComp button').forEach(b=>b.classList.toggle('active',Number(b.dataset.value)===ambientEV));
+    $('filmBounceOut').textContent=`${number('filmBounce').toFixed(1)} EV`;$('digitalBounceOut').textContent=`${number('digitalBounce').toFixed(1)} EV`;
+    $('filmBounceField').classList.toggle('hidden',getSelected('filmLight')!=='bounce');$('digitalBounceField').classList.toggle('hidden',getSelected('digitalLight')!=='bounce');
+    syncModeUI();syncFilmUI();digitalUI();updateAll();
+  }
+  setup();
+  if('serviceWorker' in navigator && location.protocol!=='file:'){window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));}
+})();
+</script>
+</body>
+</html>
